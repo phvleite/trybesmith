@@ -11,4 +11,9 @@ productRouter.post(
   (req, res) => productController.create(req, res),
 );
 
+productRouter.get(
+  '/products', 
+  (req, res) => productController.list(req, res),
+);
+
 export default productRouter;

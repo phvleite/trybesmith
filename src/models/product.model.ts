@@ -20,6 +20,13 @@ class ProductModel {
     const { insertId } = dataInserted;
     return { id: insertId, ...product };
   };
+
+  list = async (): Promise<Product[]> => {
+    const SQL = `SELECT * FROM ${BD}.${TB};`;
+    const result = await this.connection.execute(SQL);
+    const [rows] = result;
+    return rows as Product[];
+  };
 }
 
 export default ProductModel;
