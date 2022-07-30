@@ -2,12 +2,26 @@ import { Request, Response } from 'express';
 import Login from '../interfaces/login.interface';
 import UserService from '../services/users.service';
 import jwtService from '../services/jwt.service';
+import messagesErrors from '../services/messages.errors.service';
 
 class UserController {
   constructor(private userService = new UserService()) {}
 
   public create = async (req: Request, res: Response) => {
-    const user = req.body;
+    const { error, value } = this.userService.validateUser(req.body);
+    if (error) {
+      console.log(error);
+      const { message } = error;
+      let code = 0;
+      messagesErrors.forEach((mess) => {
+        if (mess.message === message) {
+          code = mess.code;
+        }
+      });
+      return res.status(code).json({ message });
+    }
+
+    const user = value;
 
     const userCreated = await this.userService.create(user);
     res.status(201).json(userCreated);

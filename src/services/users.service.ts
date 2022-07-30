@@ -22,10 +22,20 @@ class UserService {
 
   public validateLogin = (login: Login) => {
     const schema = Joi.object().keys({
-      username: Joi.string().required(),
-      password: Joi.string().required(),
+      username: Joi.string().required().min(3),
+      password: Joi.string().required().min(8),
     });
     return schema.validate(login);
+  };
+
+  public validateUser = (user: User) => {
+    const schema = Joi.object().keys({
+      username: Joi.string().required().min(3),
+      classe: Joi.string().required().min(3),
+      level: Joi.number().required().integer().min(1),
+      password: Joi.string().required().min(8),
+    });
+    return schema.validate(user);
   };
 }
 

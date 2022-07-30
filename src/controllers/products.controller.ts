@@ -1,32 +1,6 @@
 import { Request, Response } from 'express';
 import ProductService from '../services/products.service';
-
-const messages = [
-  {
-    message: '"name" is required',
-    code: 400,
-  },
-  {
-    message: '"name" must be a string',
-    code: 422,
-  },
-  {
-    message: '"name" length must be at least 3 characters long',
-    code: 422,
-  },
-  {
-    message: '"amount" is required',
-    code: 400,
-  },
-  {
-    message: '"amount" must be a string',
-    code: 422,
-  },
-  {
-    message: '"amount" length must be at least 3 characters long',
-    code: 422,
-  },
-];
+import messagesErrors from '../services/messages.errors.service';
 
 class ProductController {
   constructor(private productService = new ProductService()) {}
@@ -36,7 +10,7 @@ class ProductController {
     if (error) {
       const { message } = error;
       let code = 0;
-      messages.forEach((mess) => {
+      messagesErrors.forEach((mess) => {
         if (mess.message === message) {
           code = mess.code;
         }
