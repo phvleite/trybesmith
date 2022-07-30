@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import productRouter from './routes/product.routes';
 import userRouter from './routes/user.routes';
 import orderRouter from './routes/order.routes';

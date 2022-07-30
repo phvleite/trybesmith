@@ -22,8 +22,7 @@ class OrderModel {
   };
 
   getlistIdByOrderId = async (): Promise<ListProductIdByOrderId[]> => {
-    // const SQL = `SELECT orderId, id FROM ${BD}.${TBP} WHERE orderId > 0 ORDER BY orderId;`;
-    const SQL = `SELECT orderId, id FROM ${BD}.${TBP} ORDER BY id;`;
+    const SQL = `SELECT orderId, id FROM ${BD}.${TBP} WHERE orderId > 0;`;
     const result = await this.connection.execute(SQL);
     const [rows] = result;
     return rows as ListProductIdByOrderId[];
